@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
+/* ── Neobrutalism design tokens ─────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --nb-black: #0a0a0a;
+  --nb-white: #fafafa;
+  --nb-yellow: #fde047;
+  --nb-pink: #f472b6;
+  --nb-green: #4ade80;
+  --nb-orange: #fb923c;
+  --nb-blue: #60a5fa;
+  --nb-purple: #c084fc;
+  --nb-shadow: 4px 4px 0px #0a0a0a;
+  --nb-shadow-lg: 6px 6px 0px #0a0a0a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fafafa;
+  color: #0a0a0a;
+  font-family: "Inter", system-ui, sans-serif;
 }
+
+::selection {
+  background: #fde047;
+  color: #0a0a0a;
+}
+
+/* ── Neobrutalism component classes ─────────────────────────────────────── */
+
+.nb-card {
+  border: 2px solid #0a0a0a;
+  background: #fff;
+  box-shadow: var(--nb-shadow);
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+}
+
+.nb-card:hover {
+  box-shadow: var(--nb-shadow-lg);
+  transform: translate(-2px, -2px);
+}
+
+.nb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px solid #0a0a0a;
+  font-weight: 700;
+  padding: 0.625rem 1.25rem;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 3px 3px 0px #0a0a0a;
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nb-btn:hover {
+  box-shadow: 5px 5px 0px #0a0a0a;
+  transform: translate(-2px, -2px);
+}
+
+.nb-btn:active {
+  box-shadow: 1px 1px 0px #0a0a0a;
+  transform: translate(2px, 2px);
+}
+
+.nb-btn-yellow { background: #fde047; }
+.nb-btn-pink   { background: #f472b6; }
+.nb-btn-green  { background: #4ade80; }
+.nb-btn-orange { background: #fb923c; }
+.nb-btn-black  { background: #0a0a0a; color: #fafafa; }
+.nb-btn-white  { background: #fff; color: #0a0a0a; }
+
+.nb-input {
+  width: 100%;
+  border: 2px solid #0a0a0a;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: #fff;
+  outline: none;
+  box-shadow: 3px 3px 0px #0a0a0a;
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+}
+
+.nb-input:focus {
+  box-shadow: 5px 5px 0px #0a0a0a;
+  transform: translate(-2px, -2px);
+}
+
+.nb-badge {
+  display: inline-block;
+  border: 2px solid #0a0a0a;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+}
+
+/* ── Shimmer skeleton animation ─────────────────────────────────────────── */
+@keyframes nb-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.nb-shimmer {
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #fde047 40%,
+    #e5e7eb 80%
+  );
+  background-size: 800px 100%;
+  animation: nb-shimmer 1.4s ease-in-out infinite;
+}
+
+/* ── Button spinner ─────────────────────────────────────────────────────── */
+@keyframes nb-spin {
+  to { transform: rotate(360deg); }
+}
+
+.nb-spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2.5px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: nb-spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #fafafa; }
+::-webkit-scrollbar-thumb { background: #0a0a0a; }
