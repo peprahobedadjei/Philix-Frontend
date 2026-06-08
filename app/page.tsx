@@ -15,14 +15,14 @@ export default function HomePage() {
   useEffect(() => {
     Promise.all([moviesApi.getTrending("week"), moviesApi.getPopular(1)])
       .then(([t, p]) => {
-        setTrending(t.results);
+        setTrending(t.results.slice(0, 6));
         setPopular(p.results.slice(0, 8));
       })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
   const hero = trending[0];
-console.log(trending)
+  console.log(trending);
   return (
     <div>
       {hero && (
@@ -79,6 +79,7 @@ console.log(trending)
             </div>
           ))}
         </div>
+
         <section className="mb-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-black uppercase border-b-4 border-black pb-1">
@@ -90,7 +91,7 @@ console.log(trending)
           </div>
           {loading ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {Array.from({ length: 12 }).map((_, i) => (
+              {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
                   className="nb-card aspect-2/3 bg-gray-100 animate-pulse"
@@ -98,18 +99,34 @@ console.log(trending)
               ))}
             </div>
           ) : (
-
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-     {trending.map((m, i) => {
-  return (
-    <MovieCard
-      key={m.id}
-      movie={m}
-      index={i}
-    />
-  );
-})}
-            
+              {trending.map((m, i) => {
+                return <MovieCard key={m.id} movie={m} index={i} />;
+              })}
+            </div>
+          )}
+        </section>
+
+        <section>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-black uppercase border-b-4 border-black pb-1">
+              ⭐Popular Movies
+            </h2>
+          </div>
+          {loading ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="nb-card aspect-2/3 bg-gray-100 animate-pulse"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className=" grid grid-cols-2 md:grid-cols-4 gap-4">
+              {popular.map((m, i) => {
+                return <MovieCard key={m.id} movie={m} index={i+6} />;
+              })}
             </div>
           )}
         </section>
@@ -117,3 +134,4 @@ console.log(trending)
     </div>
   );
 }
+
