@@ -7,6 +7,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  console.log(pathname)
+
   const navLink = (href: string, label: string) => (
     <Link
       href={href}
