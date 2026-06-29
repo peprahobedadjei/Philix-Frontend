@@ -23,6 +23,8 @@ export default function HomePage() {
   }, []);
   const hero = trending[0];
   console.log(trending);
+
+  
   return (
     <div>
       {hero && (

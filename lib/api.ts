@@ -1,4 +1,4 @@
-import type { Movie, MovieDetail, PaginatedMovies } from "@/types";
+import { AuthResponse, LoginRequest, User, type Movie, type MovieDetail, type PaginatedMovies, type SignUpRequest } from "@/types";
 
 const BASE =process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -25,6 +25,24 @@ async function request<T>(
     if (res.status===204) return {} as T;
     return res.json() as Promise<T>
 }
+
+
+/// Auth--------------------------------------------------------------------------------------------
+
+export const authApi={
+    signup:(body: SignUpRequest) =>
+        request<AuthResponse>("/auth/signup", {method:"POST", body: JSON.stringify(body)}),
+
+    login:(body: LoginRequest) =>
+        request<AuthResponse>("/auth/login", {method:"POST", body: JSON.stringify(body)}),
+
+    logout:() =>
+        request<AuthResponse>("/auth/logout", {method:"POST"}),
+
+    me: () =>
+        request<User>("/auth/me")
+}
+
 
 
 

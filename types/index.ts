@@ -1,3 +1,36 @@
+///Auth
+export interface SignUpRequest{
+    email: string;
+    username:string;
+    full_name:string;
+    password:string;
+}
+
+
+export interface AuthResponse{
+    message:string ;
+    user:User;
+}
+
+export interface LoginRequest {
+    email: string;
+    password:string;
+}
+
+//User ----------------------------------------------------
+
+export interface User{
+    id:number ;
+    email:string;
+    username:string;
+    full_name:string;
+    bio:string | null;
+    avatar_url:string | null;
+    is_active:boolean;
+    created_at:string;
+}
+
+
 //Movies 
 export interface Movie{
     id:number;
